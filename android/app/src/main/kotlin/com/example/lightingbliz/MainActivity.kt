@@ -1,0 +1,6 @@
+package com.example.lightingbliz
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
