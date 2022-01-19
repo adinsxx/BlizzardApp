@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:passcode_screen/circle.dart';
 import 'package:passcode_screen/keyboard.dart';
 import 'package:passcode_screen/passcode_screen.dart';
+import 'package:random_string/random_string.dart';
+import 'dart:math';
 
 void main() {
   runApp(MaterialApp(
@@ -12,11 +14,13 @@ void main() {
     routes: {
       '/': (context) => HomePage(),
       '/DogPage': (context) => DogPage(),
-      'LaunchCodes': (context) => LaunchCodes()
+      'LaunchCodes': (context) => LaunchCodes(),
     },
   ));
 }
 
+//code pulled from the passcode package
+//https://pub.dev/packages/passcode_screen/example
 const launchCodesPasscode = '246810';
 
 class HomePage extends StatefulWidget {
@@ -145,7 +149,7 @@ class DogPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("The Best Dog"),
+        title: Text("Eevee!!!!"),
         backgroundColor: Colors.deepOrange,
       ),
       body: Container(
@@ -175,25 +179,48 @@ class DogPage extends StatelessWidget {
   }
 }
 
-class LaunchCodes extends StatelessWidget {
+class LaunchCodes extends StatefulWidget {
+  @override
+  State<LaunchCodes> createState() => _LaunchCodesState();
+}
+
+class _LaunchCodesState extends State<LaunchCodes> {
+  String randomNumber = 'X';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tap Me Page"),
+        title: Text("Launch Codes"),
         backgroundColor: Colors.green,
       ),
-      body: Container(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Back!'),
-        ),
+      body: Center(
+        child: Container(
+            child: Column(children: <Widget>[
+          ElevatedButton(
+            child: Text('Get the codes!'),
+            //https://www.youtube.com/watch?v=hTKBFuw-xyo
+            onPressed: () {
+              setState(() {
+                randomNumber = Random().nextInt(6000001).toString();
+              });
+            },
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/');
+            },
+            child: Text('Back!'),
+          ),
+          Text('Codes: $randomNumber')
+        ])),
       ),
     );
   }
 }
+
+
+
 
 // class BlizzApp extends StatelessWidget {
 //   const BlizzApp({Key? key}) : super(key: key);
